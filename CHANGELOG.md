@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 - 2026-03-02
+
+- Renamed extension identity from `must-have-plugin` to `pi-must-have-plugin` for naming consistency.
+- Updated package name, README installation paths, and npm install command.
+- Added legacy fallback support for the old config path `~/.pi/agent/extensions/must-have-plugin/config.jsonc`.
+- Renamed GitHub repository to `pi-must-have-plugin` and updated local git remote.
+
 ## 0.2.0 - 2026-03-02
 
 - Restructured project into a production-style layout with `src/`, `config/`, and `test/` directories.

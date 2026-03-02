@@ -1,4 +1,4 @@
-# must-have-plugin
+# pi-must-have-plugin
 
 Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase modal terms (for example `must`, `should not`, `optional`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`).
 
@@ -17,15 +17,15 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 
 Copy this repository to:
 
-- Global: `~/.pi/agent/extensions/must-have-plugin`
-- Project: `.pi/extensions/must-have-plugin`
+- Global: `~/.pi/agent/extensions/pi-must-have-plugin`
+- Project: `.pi/extensions/pi-must-have-plugin`
 
 Pi will auto-discover it.
 
 ### NPM package
 
 ```bash
-pi install npm:must-have-plugin
+pi install npm:pi-must-have-plugin
 ```
 
 ## Configuration
@@ -33,12 +33,13 @@ pi install npm:must-have-plugin
 Runtime config path:
 
 ```text
-~/.pi/agent/extensions/must-have-plugin/config.jsonc
+~/.pi/agent/extensions/pi-must-have-plugin/config.jsonc
 ```
 
-Legacy fallback path (read-only fallback):
+Legacy fallback paths (read-only fallback):
 
 ```text
+~/.pi/agent/extensions/must-have-plugin/config.jsonc
 ~/.config/opencode/MUST-have-plugin.jsonc
 ```
 

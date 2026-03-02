@@ -2,10 +2,11 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import type { MustHavePluginConfig } from "./types.js";
 
-export const EXTENSION_NAME = "must-have-plugin";
+export const EXTENSION_NAME = "pi-must-have-plugin";
 export const CONFIG_DIR = join(homedir(), ".pi", "agent", "extensions", EXTENSION_NAME);
 export const CONFIG_PATH = join(CONFIG_DIR, "config.jsonc");
-export const LEGACY_CONFIG_PATH = join(homedir(), ".config", "opencode", "MUST-have-plugin.jsonc");
+export const LEGACY_EXTENSION_CONFIG_PATH = join(homedir(), ".pi", "agent", "extensions", "must-have-plugin", "config.jsonc");
+export const LEGACY_OPENCODE_CONFIG_PATH = join(homedir(), ".config", "opencode", "MUST-have-plugin.jsonc");
 
 export const RFC2119_DEFAULTS: Readonly<Record<string, string>> = {
 	must: "MUST",

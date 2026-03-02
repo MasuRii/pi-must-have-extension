@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 - 2026-03-02
+
+- Synced additional behavior from the original OpenCode plugin source.
+- Enhanced debug mode logging to include replacement summary details.
+- Added `config/replacements.custom-sample.jsonc` adapted from the original plugin sample.
+- Updated README with origin attribution, media preview assets, and custom sample guidance.
+- Included asset files and custom sample config in npm package publish list.
+
 ## 0.3.0 - 2026-03-02
 
 - Renamed extension identity from `must-have-plugin` to `pi-must-have-plugin` for naming consistency.

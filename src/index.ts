@@ -8,6 +8,27 @@ import {
 import { ensureConfigExists, loadConfig } from "./config/config-loader.js";
 import { applyReplacements, shouldSkipInput } from "./replacements/replacement-engine.js";
 
+interface ReplacementDebugDetail {
+	value: string;
+	count: number;
+}
+
+function buildReplacementDebugDetails(
+	counts: Map<string, number>,
+	replacements: Record<string, string>,
+): Record<string, ReplacementDebugDetail> {
+	const details: Record<string, ReplacementDebugDetail> = {};
+
+	for (const [key, count] of counts) {
+		const value = replacements[key];
+		if (typeof value === "string") {
+			details[key] = { value, count };
+		}
+	}
+
+	return details;
+}
+
 export default function mustHavePlugin(pi: ExtensionAPI): void {
 	const warnedMessages = new Set<string>();
 
@@ -46,6 +67,13 @@ export default function mustHavePlugin(pi: ExtensionAPI): void {
 				ctx,
 			);
 		}
+
+		if (loaded.config.debug) {
+			const replacementCount = Object.keys(loaded.config.replacements).length;
+			console.info(
+				`[${EXTENSION_NAME}] debug enabled (source=${loaded.source}, replacements=${replacementCount}, config=${CONFIG_PATH})`,
+			);
+		}
 	});
 
 	pi.on("input", async (event, ctx) => {
@@ -74,8 +102,9 @@ export default function mustHavePlugin(pi: ExtensionAPI): void {
 
 		if (loaded.config.debug) {
 			const totalReplacements = Array.from(counts.values()).reduce((sum, count) => sum + count, 0);
+			const details = buildReplacementDebugDetails(counts, replacements);
 			const summary = `${EXTENSION_NAME}: applied ${totalReplacements} replacement(s).`;
-			console.info(`[${EXTENSION_NAME}] ${summary}`);
+			console.info(`[${EXTENSION_NAME}] ${summary}`, { replacements: details });
 			if (ctx.hasUI) {
 				ctx.ui.notify(summary, "info");
 			}

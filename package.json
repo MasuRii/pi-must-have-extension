@@ -1,6 +1,6 @@
 {
   "name": "pi-must-have-plugin",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "RFC 2119 keyword normalizer extension for the Pi coding agent.",
   "type": "module",
   "main": "./index.ts",
@@ -10,7 +10,9 @@
   "files": [
     "index.ts",
     "src",
+    "asset",
     "config/config.example.jsonc",
+    "config/replacements.custom-sample.jsonc",
     "README.md",
     "CHANGELOG.md",
     "LICENSE",

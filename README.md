@@ -2,14 +2,30 @@
 
 Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase modal terms (for example `must`, `should not`, `optional`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`).
 
+## Origin
+
+This extension originated from the OpenCode plugin project: [ariane-emory/MUST-have-plugin](https://github.com/ariane-emory/MUST-have-plugin).
+
+`pi-must-have-plugin` is a Pi-harness adaptation of that original plugin, converted into a modular TypeScript Pi extension.
+
+## Preview
+
+![pi-must-have-plugin overview](asset/pi-must-have-plugin.png)
+
+<video src="asset/demo.mp4" controls muted preload="metadata" width="100%"></video>
+
+If the embedded video does not render in your viewer, open it directly: [asset/demo.mp4](asset/demo.mp4).
+
 ## Features
 
 - Rewrites configurable keywords during normal prompt input.
+- Case-insensitive matching with longest-first phrase replacement.
+- Word-boundary-aware matching (does not replace inside larger words).
 - Leaves slash commands and shell-prefixed input unchanged.
 - Supports JSONC config (`// comments`, `/* blocks */`, trailing commas).
 - Auto-creates a default config when none exists.
 - Supports legacy config path migration warnings.
-- Optional debug notifications in Pi TUI.
+- Optional debug notifications in Pi TUI with replacement count/details in console logs.
 
 ## Installation
 
@@ -56,6 +72,14 @@ Example config template is included at `config/config.example.jsonc`.
 }
 ```
 
+An advanced replacement sample adapted from the original plugin is also included at:
+
+```text
+config/replacements.custom-sample.jsonc
+```
+
+You can copy selected entries from that sample into your runtime `config.jsonc`.
+
 ## Development
 
 ```bash
@@ -76,6 +100,8 @@ npm run check
 - `src/types.ts` - shared types.
 - `test/` - Node test suite.
 - `config/config.example.jsonc` - starter config template.
+- `config/replacements.custom-sample.jsonc` - advanced custom replacement sample.
+- `asset/` - README media (overview image and demo video).
 
 ## License
 

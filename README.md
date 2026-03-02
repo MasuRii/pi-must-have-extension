@@ -14,7 +14,7 @@ This extension originated from the OpenCode plugin project: [ariane-emory/MUST-h
   <img src="asset/pi-must-have-plugin.png" alt="pi-must-have-plugin" width="1100">
 </p>
 
-https://github.com/MasuRii/pi-MUST-have-plugin/raw/refs/heads/main/asset/demo.mp4
+https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d
 
 If GitHub does not render the video inline, open/download it directly from [`asset/demo.mp4`](asset/demo.mp4).
 

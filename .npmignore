@@ -1,0 +1,7 @@
+node_modules
+config.jsonc
+test
+*.log
+.git
+.gitignore
+.npmignore

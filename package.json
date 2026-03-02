@@ -1,0 +1,60 @@
+{
+  "name": "must-have-plugin",
+  "version": "0.2.0",
+  "description": "RFC 2119 keyword normalizer extension for the Pi coding agent.",
+  "type": "module",
+  "main": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "src",
+    "config/config.example.jsonc",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "lint": "npm run build",
+    "test": "node --experimental-strip-types --test test/**/*.test.ts",
+    "check": "npm run lint && npm run test"
+  },
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "pi",
+    "coding-agent",
+    "rfc2119",
+    "rfc8174",
+    "bcp14",
+    "prompt-normalization",
+    "prompt-rewrite",
+    "compliance",
+    "jsonc"
+  ],
+  "author": "MasuRii",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.55.0",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.7.3"
+  }
+}

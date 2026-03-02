@@ -10,11 +10,13 @@ This extension originated from the OpenCode plugin project: [ariane-emory/MUST-h
 
 ## Preview
 
-![pi-must-have-plugin overview](asset/pi-must-have-plugin.png)
+<p>
+  <img src="asset/pi-must-have-plugin.png" alt="pi-must-have-plugin" width="1100">
+</p>
 
-<video src="asset/demo.mp4" controls muted preload="metadata" width="100%"></video>
+https://github.com/MasuRii/pi-MUST-have-plugin/raw/refs/heads/main/asset/demo.mp4
 
-If the embedded video does not render in your viewer, open it directly: [asset/demo.mp4](asset/demo.mp4).
+If GitHub does not render the video inline, open/download it directly from [`asset/demo.mp4`](asset/demo.mp4).
 
 ## Features
 

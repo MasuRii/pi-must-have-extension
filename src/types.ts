@@ -5,7 +5,7 @@ export interface MustHavePluginConfig {
 
 export interface ConfigLoadResult {
 	config: MustHavePluginConfig;
-	source: "primary" | "legacy" | "fallback";
+	source: "primary" | "legacy_extension" | "legacy_opencode" | "fallback";
 	warning?: string;
 }
 

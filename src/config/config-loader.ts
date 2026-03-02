@@ -1,5 +1,12 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { CONFIG_DIR, CONFIG_PATH, DEFAULT_CONFIG, FALLBACK_CONFIG, LEGACY_CONFIG_PATH } from "../constants.js";
+import {
+	CONFIG_DIR,
+	CONFIG_PATH,
+	DEFAULT_CONFIG,
+	FALLBACK_CONFIG,
+	LEGACY_EXTENSION_CONFIG_PATH,
+	LEGACY_OPENCODE_CONFIG_PATH,
+} from "../constants.js";
 import { parseJsonc } from "./jsonc.js";
 import type { ConfigLoadResult, EnsureConfigResult, MustHavePluginConfig } from "../types.js";
 
@@ -45,7 +52,7 @@ function parseConfigFromPath(path: string): Omit<ConfigLoadResult, "source"> {
 }
 
 export function ensureConfigExists(): EnsureConfigResult {
-	if (existsSync(CONFIG_PATH) || existsSync(LEGACY_CONFIG_PATH)) {
+	if (existsSync(CONFIG_PATH) || existsSync(LEGACY_EXTENSION_CONFIG_PATH) || existsSync(LEGACY_OPENCODE_CONFIG_PATH)) {
 		return { created: false };
 	}
 
@@ -68,9 +75,14 @@ export function loadConfig(): ConfigLoadResult {
 			return { ...loaded, source: "primary" };
 		}
 
-		if (existsSync(LEGACY_CONFIG_PATH)) {
-			const loaded = parseConfigFromPath(LEGACY_CONFIG_PATH);
-			return { ...loaded, source: "legacy" };
+		if (existsSync(LEGACY_EXTENSION_CONFIG_PATH)) {
+			const loaded = parseConfigFromPath(LEGACY_EXTENSION_CONFIG_PATH);
+			return { ...loaded, source: "legacy_extension" };
+		}
+
+		if (existsSync(LEGACY_OPENCODE_CONFIG_PATH)) {
+			const loaded = parseConfigFromPath(LEGACY_OPENCODE_CONFIG_PATH);
+			return { ...loaded, source: "legacy_opencode" };
 		}
 
 		return { config: cloneFallbackConfig(), source: "fallback" };

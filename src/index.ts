@@ -1,5 +1,10 @@
 import type { ExtensionAPI, ExtensionContext } from "@mariozechner/pi-coding-agent";
-import { CONFIG_PATH, EXTENSION_NAME, LEGACY_CONFIG_PATH } from "./constants.js";
+import {
+	CONFIG_PATH,
+	EXTENSION_NAME,
+	LEGACY_EXTENSION_CONFIG_PATH,
+	LEGACY_OPENCODE_CONFIG_PATH,
+} from "./constants.js";
 import { ensureConfigExists, loadConfig } from "./config/config-loader.js";
 import { applyReplacements, shouldSkipInput } from "./replacements/replacement-engine.js";
 
@@ -28,8 +33,18 @@ export default function mustHavePlugin(pi: ExtensionAPI): void {
 			warnOnce(loaded.warning, ctx);
 		}
 
-		if (loaded.source === "legacy") {
-			warnOnce(`${EXTENSION_NAME}: using legacy config ${LEGACY_CONFIG_PATH}. Create ${CONFIG_PATH} to override it.`, ctx);
+		if (loaded.source === "legacy_extension") {
+			warnOnce(
+				`${EXTENSION_NAME}: using legacy config ${LEGACY_EXTENSION_CONFIG_PATH}. Move it to ${CONFIG_PATH} to override defaults.`,
+				ctx,
+			);
+		}
+
+		if (loaded.source === "legacy_opencode") {
+			warnOnce(
+				`${EXTENSION_NAME}: using legacy config ${LEGACY_OPENCODE_CONFIG_PATH}. Move it to ${CONFIG_PATH} to override defaults.`,
+				ctx,
+			);
 		}
 	});
 

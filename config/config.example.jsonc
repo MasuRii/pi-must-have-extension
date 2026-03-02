@@ -1,5 +1,5 @@
 {
-  // Local override for pi-must-have-plugin
+  // Local override for pi-must-have-extension
   "debug": false,
   "replacements": {
     "must": "MUST",

@@ -1,3 +1,3 @@
-import mustHavePlugin from "./src/index.js";
+import mustHaveExtension from "./src/index.js";
 
-export default mustHavePlugin;
+export default mustHaveExtension;

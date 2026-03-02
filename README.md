@@ -1,4 +1,4 @@
-# pi-must-have-plugin
+# pi-must-have-extension
 
 Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase modal terms (for example `must`, `should not`, `optional`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`).
 
@@ -6,19 +6,19 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 
 This extension originated from the OpenCode plugin project: [ariane-emory/MUST-have-plugin](https://github.com/ariane-emory/MUST-have-plugin).
 
-`pi-must-have-plugin` is a Pi-harness adaptation of that original plugin, converted into a modular TypeScript Pi extension.
+`pi-must-have-extension` is a Pi-harness adaptation of that original project, converted into a modular TypeScript Pi extension.
 
 ## Preview
 
-![pi-must-have-plugin overview](https://raw.githubusercontent.com/MasuRii/pi-must-have-plugin/main/asset/pi-must-have-plugin.png)
+![pi-must-have-extension overview](https://raw.githubusercontent.com/MasuRii/pi-must-have-extension/main/asset/pi-must-have-extension.png)
 
-[![Watch demo video](https://raw.githubusercontent.com/MasuRii/pi-must-have-plugin/main/asset/pi-must-have-plugin.png)](https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d)
+[![Watch demo video](https://raw.githubusercontent.com/MasuRii/pi-must-have-extension/main/asset/pi-must-have-extension.png)](https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d)
 
 > npmjs.com README rendering does not reliably support inline `<video>` playback. Use the thumbnail above to play the demo video.
 
 Direct links:
 - Demo video (GitHub attachment): https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d
-- Demo video file: https://raw.githubusercontent.com/MasuRii/pi-must-have-plugin/main/asset/demo.mp4
+- Demo video file: https://raw.githubusercontent.com/MasuRii/pi-must-have-extension/main/asset/demo.mp4
 
 ## Features
 
@@ -26,7 +26,6 @@ Direct links:
 - Case-insensitive matching with longest-first phrase replacement.
 - Word-boundary-aware matching (does not replace inside larger words).
 - Leaves slash commands and shell-prefixed input unchanged.
-- Supports JSONC config (`// comments`, `/* blocks */`, trailing commas).
 - Auto-creates a default config when none exists.
 - Supports legacy config path migration warnings.
 - Optional debug notifications in Pi TUI with replacement count/details in console logs.
@@ -37,15 +36,15 @@ Direct links:
 
 Copy this repository to:
 
-- Global: `~/.pi/agent/extensions/pi-must-have-plugin`
-- Project: `.pi/extensions/pi-must-have-plugin`
+- Global: `~/.pi/agent/extensions/pi-must-have-extension`
+- Project: `.pi/extensions/pi-must-have-extension`
 
 Pi will auto-discover it.
 
 ### NPM package
 
 ```bash
-pi install npm:pi-must-have-plugin
+pi install npm:pi-must-have-extension
 ```
 
 ## Configuration
@@ -53,12 +52,13 @@ pi install npm:pi-must-have-plugin
 Runtime config path:
 
 ```text
-~/.pi/agent/extensions/pi-must-have-plugin/config.jsonc
+~/.pi/agent/extensions/pi-must-have-extension/config.jsonc
 ```
 
 Legacy fallback paths (read-only fallback):
 
 ```text
+~/.pi/agent/extensions/pi-must-have-plugin/config.jsonc
 ~/.pi/agent/extensions/must-have-plugin/config.jsonc
 ~/.config/opencode/MUST-have-plugin.jsonc
 ```
@@ -76,7 +76,7 @@ Example config template is included at `config/config.example.jsonc`.
 }
 ```
 
-An advanced replacement sample adapted from the original plugin is also included at:
+An advanced replacement sample adapted from the original project is also included at:
 
 ```text
 config/replacements.custom-sample.jsonc

@@ -4,13 +4,14 @@ import {
 	CONFIG_PATH,
 	DEFAULT_CONFIG,
 	FALLBACK_CONFIG,
-	LEGACY_EXTENSION_CONFIG_PATH,
+	LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH,
 	LEGACY_OPENCODE_CONFIG_PATH,
+	LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH,
 } from "../constants.js";
 import { parseJsonc } from "./jsonc.js";
-import type { ConfigLoadResult, EnsureConfigResult, MustHavePluginConfig } from "../types.js";
+import type { ConfigLoadResult, EnsureConfigResult, MustHaveExtensionConfig } from "../types.js";
 
-function cloneFallbackConfig(): MustHavePluginConfig {
+function cloneFallbackConfig(): MustHaveExtensionConfig {
 	return {
 		debug: FALLBACK_CONFIG.debug,
 		replacements: { ...FALLBACK_CONFIG.replacements },
@@ -52,7 +53,12 @@ function parseConfigFromPath(path: string): Omit<ConfigLoadResult, "source"> {
 }
 
 export function ensureConfigExists(): EnsureConfigResult {
-	if (existsSync(CONFIG_PATH) || existsSync(LEGACY_EXTENSION_CONFIG_PATH) || existsSync(LEGACY_OPENCODE_CONFIG_PATH)) {
+	if (
+		existsSync(CONFIG_PATH) ||
+		existsSync(LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH) ||
+		existsSync(LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH) ||
+		existsSync(LEGACY_OPENCODE_CONFIG_PATH)
+	) {
 		return { created: false };
 	}
 
@@ -75,9 +81,14 @@ export function loadConfig(): ConfigLoadResult {
 			return { ...loaded, source: "primary" };
 		}
 
-		if (existsSync(LEGACY_EXTENSION_CONFIG_PATH)) {
-			const loaded = parseConfigFromPath(LEGACY_EXTENSION_CONFIG_PATH);
-			return { ...loaded, source: "legacy_extension" };
+		if (existsSync(LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH)) {
+			const loaded = parseConfigFromPath(LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH);
+			return { ...loaded, source: "legacy_pi_plugin" };
+		}
+
+		if (existsSync(LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH)) {
+			const loaded = parseConfigFromPath(LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH);
+			return { ...loaded, source: "legacy_plugin" };
 		}
 
 		if (existsSync(LEGACY_OPENCODE_CONFIG_PATH)) {

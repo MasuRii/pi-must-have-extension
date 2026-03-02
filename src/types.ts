@@ -1,11 +1,11 @@
-export interface MustHavePluginConfig {
+export interface MustHaveExtensionConfig {
 	debug: boolean;
 	replacements: Record<string, string>;
 }
 
 export interface ConfigLoadResult {
-	config: MustHavePluginConfig;
-	source: "primary" | "legacy_extension" | "legacy_opencode" | "fallback";
+	config: MustHaveExtensionConfig;
+	source: "primary" | "legacy_pi_plugin" | "legacy_plugin" | "legacy_opencode" | "fallback";
 	warning?: string;
 }
 

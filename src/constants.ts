@@ -1,11 +1,27 @@
 import { homedir } from "node:os";
 import { join } from "node:path";
-import type { MustHavePluginConfig } from "./types.js";
+import type { MustHaveExtensionConfig } from "./types.js";
 
-export const EXTENSION_NAME = "pi-must-have-plugin";
+export const EXTENSION_NAME = "pi-must-have-extension";
 export const CONFIG_DIR = join(homedir(), ".pi", "agent", "extensions", EXTENSION_NAME);
 export const CONFIG_PATH = join(CONFIG_DIR, "config.jsonc");
-export const LEGACY_EXTENSION_CONFIG_PATH = join(homedir(), ".pi", "agent", "extensions", "must-have-plugin", "config.jsonc");
+
+export const LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH = join(
+	homedir(),
+	".pi",
+	"agent",
+	"extensions",
+	"pi-must-have-plugin",
+	"config.jsonc",
+);
+export const LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH = join(
+	homedir(),
+	".pi",
+	"agent",
+	"extensions",
+	"must-have-plugin",
+	"config.jsonc",
+);
 export const LEGACY_OPENCODE_CONFIG_PATH = join(homedir(), ".config", "opencode", "MUST-have-plugin.jsonc");
 
 export const RFC2119_DEFAULTS: Readonly<Record<string, string>> = {
@@ -22,7 +38,7 @@ export const RFC2119_DEFAULTS: Readonly<Record<string, string>> = {
 	optional: "OPTIONAL",
 };
 
-export const FALLBACK_CONFIG: MustHavePluginConfig = {
+export const FALLBACK_CONFIG: MustHaveExtensionConfig = {
 	debug: false,
 	replacements: { ...RFC2119_DEFAULTS },
 };

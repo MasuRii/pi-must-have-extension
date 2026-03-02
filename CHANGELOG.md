@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 - 2026-03-02
+
+- Renamed package identity from `pi-must-have-plugin` to `pi-must-have-extension`.
+- Renamed extension runtime folder/references and GitHub repository to `pi-must-have-extension`.
+- Updated README, npm metadata, asset naming, and install/config paths to extension terminology.
+- Added compatibility for legacy configs under `pi-must-have-plugin`, `must-have-plugin`, and OpenCode paths.
+
 ## 0.3.2 - 2026-03-02
 
 - Fixed README media rendering for npm by switching to absolute GitHub raw image URLs.

@@ -2,8 +2,9 @@ import type { ExtensionAPI, ExtensionContext } from "@mariozechner/pi-coding-age
 import {
 	CONFIG_PATH,
 	EXTENSION_NAME,
-	LEGACY_EXTENSION_CONFIG_PATH,
+	LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH,
 	LEGACY_OPENCODE_CONFIG_PATH,
+	LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH,
 } from "./constants.js";
 import { ensureConfigExists, loadConfig } from "./config/config-loader.js";
 import { applyReplacements, shouldSkipInput } from "./replacements/replacement-engine.js";
@@ -29,7 +30,7 @@ function buildReplacementDebugDetails(
 	return details;
 }
 
-export default function mustHavePlugin(pi: ExtensionAPI): void {
+export default function mustHaveExtension(pi: ExtensionAPI): void {
 	const warnedMessages = new Set<string>();
 
 	const warnOnce = (message: string, ctx: Pick<ExtensionContext, "hasUI" | "ui">): void => {
@@ -54,16 +55,23 @@ export default function mustHavePlugin(pi: ExtensionAPI): void {
 			warnOnce(loaded.warning, ctx);
 		}
 
-		if (loaded.source === "legacy_extension") {
+		if (loaded.source === "legacy_pi_plugin") {
 			warnOnce(
-				`${EXTENSION_NAME}: using legacy config ${LEGACY_EXTENSION_CONFIG_PATH}. Move it to ${CONFIG_PATH} to override defaults.`,
+				`${EXTENSION_NAME}: using legacy config ${LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
+				ctx,
+			);
+		}
+
+		if (loaded.source === "legacy_plugin") {
+			warnOnce(
+				`${EXTENSION_NAME}: using legacy config ${LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
 			);
 		}
 
 		if (loaded.source === "legacy_opencode") {
 			warnOnce(
-				`${EXTENSION_NAME}: using legacy config ${LEGACY_OPENCODE_CONFIG_PATH}. Move it to ${CONFIG_PATH} to override defaults.`,
+				`${EXTENSION_NAME}: using legacy config ${LEGACY_OPENCODE_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
 			);
 		}

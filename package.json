@@ -1,6 +1,6 @@
 {
-  "name": "pi-must-have-plugin",
-  "version": "0.3.2",
+  "name": "pi-must-have-extension",
+  "version": "0.4.0",
   "description": "RFC 2119 keyword normalizer extension for the Pi coding agent.",
   "type": "module",
   "main": "./index.ts",
@@ -42,11 +42,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MasuRii/pi-must-have-plugin.git"
+    "url": "git+https://github.com/MasuRii/pi-must-have-extension.git"
   },
-  "homepage": "https://github.com/MasuRii/pi-must-have-plugin#readme",
+  "homepage": "https://github.com/MasuRii/pi-must-have-extension#readme",
   "bugs": {
-    "url": "https://github.com/MasuRii/pi-must-have-plugin/issues"
+    "url": "https://github.com/MasuRii/pi-must-have-extension/issues"
   },
   "engines": {
     "node": ">=20"

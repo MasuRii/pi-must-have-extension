@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.2 - 2026-03-02
+
+- Fixed README media rendering for npm by switching to absolute GitHub raw image URLs.
+- Added clickable demo thumbnail and explicit direct video links for npm compatibility.
+- Added `repository`, `homepage`, and `bugs` metadata to improve npm package page link resolution.
+
 ## 0.3.1 - 2026-03-02
 
 - Synced additional behavior from the original OpenCode plugin source.

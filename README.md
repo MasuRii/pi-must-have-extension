@@ -10,13 +10,15 @@ This extension originated from the OpenCode plugin project: [ariane-emory/MUST-h
 
 ## Preview
 
-<p>
-  <img src="asset/pi-must-have-plugin.png" alt="pi-must-have-plugin" width="1100">
-</p>
+![pi-must-have-plugin overview](https://raw.githubusercontent.com/MasuRii/pi-must-have-plugin/main/asset/pi-must-have-plugin.png)
 
-https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d
+[![Watch demo video](https://raw.githubusercontent.com/MasuRii/pi-must-have-plugin/main/asset/pi-must-have-plugin.png)](https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d)
 
-If GitHub does not render the video inline, open/download it directly from [`asset/demo.mp4`](asset/demo.mp4).
+> npmjs.com README rendering does not reliably support inline `<video>` playback. Use the thumbnail above to play the demo video.
+
+Direct links:
+- Demo video (GitHub attachment): https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d
+- Demo video file: https://raw.githubusercontent.com/MasuRii/pi-must-have-plugin/main/asset/demo.mp4
 
 ## Features
 

@@ -6,7 +6,7 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 
 ## Demo
 
-<video src="asset/demo.mp4" controls width="100%"></video>
+[![Watch demo video](https://raw.githubusercontent.com/MasuRii/pi-must-have-extension/main/asset/pi-must-have-extension.png)](https://github.com/user-attachments/assets/22149125-8976-4d06-98cb-e7cfa180476d)
 
 ## Features
 

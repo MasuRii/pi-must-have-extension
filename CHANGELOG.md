@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.3] - 2026-03-04
+
+### Fixed
+- Use GitHub-compatible video embed format (thumbnail image linking to user-attachments video URL)
+
 ## [0.4.2] - 2026-03-04
 
 ### Fixed

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.5] - 2026-03-12
+
+### Changed
+- Updated `@mariozechner/pi-coding-agent` peer dependency to `^0.57.0`
+- Updated `@types/node` dev dependency to `^25.3.5`
+
 ## [0.4.4] - 2026-03-04
 
 ### Fixed

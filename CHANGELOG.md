@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.6] - 2026-03-13
+
+### Changed
+- Updated AWS SDK client-bedrock-runtime dependency to 3.1007.0
+
 ## [0.4.5] - 2026-03-12
 
 ### Changed

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.7] - 2026-03-23
+
+### Changed
+- Updated `@mariozechner/pi-coding-agent` and `@mariozechner/pi-tui` peer dependencies to ^0.62.0
+- Updated `@types/node` dev dependency to ^25.3.5` and `typescript` dev dependency to ^5.7.3`
+
 ## [0.4.6] - 2026-03-13
 
 ### Changed

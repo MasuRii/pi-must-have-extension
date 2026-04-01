@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.8] - 2026-04-01
+
+### Changed
+- Updated `@mariozechner/pi-coding-agent` peer dependency to ^0.64.0
+- Updated `typescript` dev dependency to ^6.0.2
+
 ## [0.4.7] - 2026-03-23
 
 ### Changed

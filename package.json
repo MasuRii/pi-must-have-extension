@@ -35,6 +35,8 @@
     "bcp14",
     "prompt-normalization",
     "prompt-rewrite",
+    "prompt-engineering",
+    "keyword-normalization",
     "compliance",
     "jsonc"
   ],

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.9] - 2026-04-01
+
+### Changed
+- Fixed image link and README formatting
+- Added npm keywords for discoverability (`pi-package`, `pi-extension`, `pi-coding-agent`, `coding-agent`)
+- Added Related Pi Extensions cross-linking section to README
+
 ## [0.4.8] - 2026-04-01
 
 ### Changed

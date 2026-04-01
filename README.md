@@ -174,6 +174,13 @@ npm run check        # Build + test
 
 This extension is a Pi-harness adaptation of [ariane-emory/MUST-have-plugin](https://github.com/ariane-emory/MUST-have-plugin), converted into a modular TypeScript Pi extension.
 
+## Related Pi Extensions
+
+- [pi-permission-system](https://github.com/MasuRii/pi-permission-system) — Permission enforcement for tool and command access
+- [pi-tool-display](https://github.com/MasuRii/pi-tool-display) — Compact tool rendering and diff visualization
+- [pi-rtk-optimizer](https://github.com/MasuRii/pi-rtk-optimizer) — RTK command rewriting and output compaction
+- [pi-multi-auth](https://github.com/MasuRii/pi-multi-auth) — Multi-provider credential management and quota-aware rotation
+
 ## License
 
 MIT

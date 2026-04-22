@@ -1,6 +1,6 @@
 {
   "name": "pi-must-have-extension",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "RFC 2119 keyword normalizer extension for the Pi coding agent.",
   "type": "module",
   "main": "./index.ts",
@@ -62,11 +62,11 @@
     ]
   },
   "peerDependencies": {
-    "@mariozechner/pi-coding-agent": "^0.64.0"
+    "@mariozechner/pi-coding-agent": "^0.68.1"
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "^0.64.0",
-    "@types/node": "^25.5.0",
-    "typescript": "^6.0.2"
+    "@mariozechner/pi-coding-agent": "^0.68.1",
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
   }
 }

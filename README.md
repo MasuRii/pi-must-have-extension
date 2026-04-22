@@ -27,7 +27,7 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 Copy this repository to one of the following locations:
 
 ```text
-~/.pi/agent/extensions/pi-must-have-extension     # Global (all projects)
+~/.pi/agent/extensions/pi-must-have-extension     # Global default (when PI_CODING_AGENT_DIR is unset)
 .pi/extensions/pi-must-have-extension             # Project-specific
 ```
 
@@ -66,7 +66,8 @@ The extension does not transform:
 The extension uses a JSONC configuration file (JSON with comments):
 
 ```text
-~/.pi/agent/extensions/pi-must-have-extension/config.jsonc
+Default global path: ~/.pi/agent/extensions/pi-must-have-extension/config.jsonc
+Actual global path: $PI_CODING_AGENT_DIR/extensions/pi-must-have-extension/config.jsonc when PI_CODING_AGENT_DIR is set
 ```
 
 ### Default Configuration
@@ -125,6 +126,7 @@ An advanced replacement sample is included at `config/replacements.custom-sample
 The extension supports migration from previous versions. Legacy configs are read from:
 
 ```text
+Default global legacy paths (respect PI_CODING_AGENT_DIR for the Pi agent directory):
 ~/.pi/agent/extensions/pi-must-have-plugin/config.jsonc
 ~/.pi/agent/extensions/must-have-plugin/config.jsonc
 ~/.config/opencode/MUST-have-plugin.jsonc

@@ -1,5 +1,19 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.4.10] - 2026-04-22
+
+### Changed
+- Resolved global config and legacy migration paths from the Pi agent directory so installs respect `PI_CODING_AGENT_DIR`
+- Updated README installation and configuration path examples to distinguish default global paths from `PI_CODING_AGENT_DIR`-based paths
+- Updated `@mariozechner/pi-coding-agent` peer/dev dependency to `^0.68.1`, `@types/node` dev dependency to `^25.6.0`, and `typescript` dev dependency to `^6.0.3`
+
 ## [0.4.9] - 2026-04-01
 
 ### Changed
@@ -53,20 +67,20 @@
 - Improved legacy config path detection with centralized lookup
 - Added migration source tracking to config loader feedback
 
-## 0.4.0 - 2026-03-02
+## [0.4.0] - 2026-03-02
 
 - Renamed package identity from `pi-must-have-plugin` to `pi-must-have-extension`.
 - Renamed extension runtime folder/references and GitHub repository to `pi-must-have-extension`.
 - Updated README, npm metadata, asset naming, and install/config paths to extension terminology.
 - Added compatibility for legacy configs under `pi-must-have-plugin`, `must-have-plugin`, and OpenCode paths.
 
-## 0.3.2 - 2026-03-02
+## [0.3.2] - 2026-03-02
 
 - Fixed README media rendering for npm by switching to absolute GitHub raw image URLs.
 - Added clickable demo thumbnail and explicit direct video links for npm compatibility.
 - Added `repository`, `homepage`, and `bugs` metadata to improve npm package page link resolution.
 
-## 0.3.1 - 2026-03-02
+## [0.3.1] - 2026-03-02
 
 - Synced additional behavior from the original OpenCode plugin source.
 - Enhanced debug mode logging to include replacement summary details.
@@ -74,14 +88,14 @@
 - Updated README with origin attribution, media preview assets, and custom sample guidance.
 - Included asset files and custom sample config in npm package publish list.
 
-## 0.3.0 - 2026-03-02
+## [0.3.0] - 2026-03-02
 
 - Renamed extension identity from `must-have-plugin` to `pi-must-have-plugin` for naming consistency.
 - Updated package name, README installation paths, and npm install command.
 - Added legacy fallback support for the old config path `~/.pi/agent/extensions/must-have-plugin/config.jsonc`.
 - Renamed GitHub repository to `pi-must-have-plugin` and updated local git remote.
 
-## 0.2.0 - 2026-03-02
+## [0.2.0] - 2026-03-02
 
 - Restructured project into a production-style layout with `src/`, `config/`, and `test/` directories.
 - Added TypeScript project config, build/lint/test scripts, and strict type-checking setup.

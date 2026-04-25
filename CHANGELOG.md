@@ -1,12 +1,23 @@
 # Changelog
 
+## [0.4.11] - 2026-04-25
+
+### Changed
+- Updated `@mariozechner/pi-coding-agent` peer dependency to `^0.70.0` and dev dependency to `^0.70.2`
+
+## [0.4.10] - 2026-04-22
+
+### Changed
+- Resolved global config and legacy migration paths through Pi's `getAgentDir()`, preserving `PI_CODING_AGENT_DIR` support ([#2](https://github.com/MasuRii/pi-must-have-extension/pull/2) by [@tynanbe](https://github.com/tynanbe))
+- Updated README installation and configuration path examples to distinguish default global paths from `PI_CODING_AGENT_DIR`-based paths
+- Updated `@mariozechner/pi-coding-agent` peer/dev dependency to `^0.68.1`, `@types/node` dev dependency to `^25.6.0`, and `typescript` dev dependency to `^6.0.3`
+
 ## [0.4.9] - 2026-04-01
 
 ### Changed
 - Fixed image link and README formatting
 - Added npm keywords for discoverability (`pi-package`, `pi-extension`, `pi-coding-agent`, `coding-agent`)
 - Added Related Pi Extensions cross-linking section to README
-- Added custom Pi agent directory resolution through `getAgentDir()`, preserving `PI_CODING_AGENT_DIR` support ([#2](https://github.com/MasuRii/pi-must-have-extension/pull/2) by [@tynanbe](https://github.com/tynanbe))
 
 ## [0.4.8] - 2026-04-01
 

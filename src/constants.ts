@@ -1,21 +1,21 @@
+import { getAgentDir } from "@mariozechner/pi-coding-agent";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { env } from "node:process";
 import type { MustHaveExtensionConfig } from "./types.js";
 
 export const EXTENSION_NAME = "pi-must-have-extension";
-export const PI_CODING_AGENT_DIR = env["PI_CODING_AGENT_DIR"] || join(homedir(), ".pi", "agent");
-export const CONFIG_DIR = join(PI_CODING_AGENT_DIR, "extensions", EXTENSION_NAME);
+export const AGENT_DIR = getAgentDir();
+export const CONFIG_DIR = join(AGENT_DIR, "extensions", EXTENSION_NAME);
 export const CONFIG_PATH = join(CONFIG_DIR, "config.jsonc");
 
 export const LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH = join(
-	PI_CODING_AGENT_DIR,
+	AGENT_DIR,
 	"extensions",
 	"pi-must-have-plugin",
 	"config.jsonc",
 );
 export const LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH = join(
-	PI_CODING_AGENT_DIR,
+	AGENT_DIR,
 	"extensions",
 	"must-have-plugin",
 	"config.jsonc",

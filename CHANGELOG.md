@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.9] - 2026-04-01
+
+### Changed
+- Fixed image link and README formatting
+- Added npm keywords for discoverability (`pi-package`, `pi-extension`, `pi-coding-agent`, `coding-agent`)
+- Added Related Pi Extensions cross-linking section to README
+- Added custom Pi agent directory resolution through `getAgentDir()`, preserving `PI_CODING_AGENT_DIR` support ([#2](https://github.com/MasuRii/pi-must-have-extension/pull/2) by [@tynanbe](https://github.com/tynanbe))
+
+## [0.4.8] - 2026-04-01
+
+### Changed
+- Updated `@mariozechner/pi-coding-agent` peer dependency to ^0.64.0
+- Updated `typescript` dev dependency to ^6.0.2
+
 ## [0.4.7] - 2026-03-23
 
 ### Changed

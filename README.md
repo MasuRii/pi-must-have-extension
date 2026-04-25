@@ -1,5 +1,7 @@
 # pi-must-have-extension
 
+[![npm version](https://img.shields.io/npm/v/pi-must-have-extension?style=flat-square)](https://www.npmjs.com/package/pi-must-have-extension) [![License](https://img.shields.io/github/license/MasuRii/pi-must-have-extension?style=flat-square)](LICENSE)
+
 Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase modal terms (`must`, `should not`, `optional`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`).
 
 <img width="1360" height="752" alt="image" src="https://github.com/user-attachments/assets/d5aff97e-ac69-48d1-a071-c7f5460899e4" />
@@ -27,7 +29,7 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 Copy this repository to one of the following locations:
 
 ```text
-~/.pi/agent/extensions/pi-must-have-extension     # Global (all projects)
+~/.pi/agent/extensions/pi-must-have-extension     # Global default (when PI_CODING_AGENT_DIR is unset)
 .pi/extensions/pi-must-have-extension             # Project-specific
 ```
 
@@ -66,7 +68,8 @@ The extension does not transform:
 The extension uses a JSONC configuration file (JSON with comments):
 
 ```text
-~/.pi/agent/extensions/pi-must-have-extension/config.jsonc
+Default global path: ~/.pi/agent/extensions/pi-must-have-extension/config.jsonc
+Actual global path: $PI_CODING_AGENT_DIR/extensions/pi-must-have-extension/config.jsonc when PI_CODING_AGENT_DIR is set
 ```
 
 ### Default Configuration
@@ -125,6 +128,7 @@ An advanced replacement sample is included at `config/replacements.custom-sample
 The extension supports migration from previous versions. Legacy configs are read from:
 
 ```text
+Default global legacy paths (respect PI_CODING_AGENT_DIR for the Pi agent directory):
 ~/.pi/agent/extensions/pi-must-have-plugin/config.jsonc
 ~/.pi/agent/extensions/must-have-plugin/config.jsonc
 ~/.config/opencode/MUST-have-plugin.jsonc

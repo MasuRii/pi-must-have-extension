@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.12] - 2026-04-28
+
+### Changed
+- Refreshed `@mariozechner/pi-coding-agent` dev dependency to `^0.70.5` and synchronized the lockfile.
+
 ## [0.4.11] - 2026-04-25
 
 ### Changed

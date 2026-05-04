@@ -62,10 +62,10 @@
     ]
   },
   "peerDependencies": {
-    "@mariozechner/pi-coding-agent": "^0.70.0"
+    "@mariozechner/pi-coding-agent": "^0.72.0"
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "^0.70.5",
+    "@mariozechner/pi-coding-agent": "^0.72.0",
     "@types/node": "^25.6.0",
     "typescript": "^6.0.3"
   }

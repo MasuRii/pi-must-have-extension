@@ -1,4 +1,4 @@
-import { getAgentDir } from "@mariozechner/pi-coding-agent";
+import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import type { MustHaveExtensionConfig } from "./types.js";

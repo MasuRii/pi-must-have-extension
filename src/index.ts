@@ -1,4 +1,4 @@
-import type { ExtensionAPI, ExtensionContext } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
 	CONFIG_PATH,
 	EXTENSION_NAME,
@@ -7,6 +7,7 @@ import {
 	LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH,
 } from "./constants.js";
 import { ensureConfigExists, loadConfig } from "./config/config-loader.js";
+import { writeDebugLog } from "./debug-logger.js";
 import { applyReplacements, shouldSkipInput } from "./replacements/replacement-engine.js";
 
 interface ReplacementDebugDetail {
@@ -33,12 +34,16 @@ function buildReplacementDebugDetails(
 export default function mustHaveExtension(pi: ExtensionAPI): void {
 	const warnedMessages = new Set<string>();
 
-	const warnOnce = (message: string, ctx: Pick<ExtensionContext, "hasUI" | "ui">): void => {
+	const warnOnce = (
+		message: string,
+		ctx: Pick<ExtensionContext, "hasUI" | "ui">,
+		debugEnabled: boolean,
+	): void => {
 		if (warnedMessages.has(message)) {
 			return;
 		}
 		warnedMessages.add(message);
-		console.warn(`[${EXTENSION_NAME}] ${message}`);
+		writeDebugLog(debugEnabled, "warning", { message });
 		if (ctx.hasUI) {
 			ctx.ui.notify(message, "warning");
 		}
@@ -46,25 +51,28 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 
 	pi.on("session_start", async (_event, ctx) => {
 		const ensureResult = ensureConfigExists();
+		const loaded = loadConfig();
+		const debugEnabled = loaded.config.debug;
 		if (ensureResult.error) {
-			warnOnce(ensureResult.error, ctx);
+			warnOnce(ensureResult.error, ctx, debugEnabled);
 		}
 		if (ensureResult.migratedFrom) {
 			warnOnce(
 				`${EXTENSION_NAME}: migrated legacy config from ${ensureResult.migratedFrom} to ${CONFIG_PATH}.`,
 				ctx,
+				debugEnabled,
 			);
 		}
 
-		const loaded = loadConfig();
 		if (loaded.warning) {
-			warnOnce(loaded.warning, ctx);
+			warnOnce(loaded.warning, ctx, debugEnabled);
 		}
 
 		if (loaded.source === "legacy_pi_plugin") {
 			warnOnce(
 				`${EXTENSION_NAME}: using legacy config ${LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
+				debugEnabled,
 			);
 		}
 
@@ -72,6 +80,7 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 			warnOnce(
 				`${EXTENSION_NAME}: using legacy config ${LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
+				debugEnabled,
 			);
 		}
 
@@ -79,14 +88,17 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 			warnOnce(
 				`${EXTENSION_NAME}: using legacy config ${LEGACY_OPENCODE_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
+				debugEnabled,
 			);
 		}
 
-		if (loaded.config.debug) {
+		if (debugEnabled) {
 			const replacementCount = Object.keys(loaded.config.replacements).length;
-			console.info(
-				`[${EXTENSION_NAME}] debug enabled (source=${loaded.source}, replacements=${replacementCount}, config=${CONFIG_PATH})`,
-			);
+			writeDebugLog(true, "debug.enabled", {
+				source: loaded.source,
+				replacementCount,
+				configPath: CONFIG_PATH,
+			});
 		}
 	});
 
@@ -101,7 +113,7 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 
 		const loaded = loadConfig();
 		if (loaded.warning) {
-			warnOnce(loaded.warning, ctx);
+			warnOnce(loaded.warning, ctx, loaded.config.debug);
 		}
 
 		const replacements = loaded.config.replacements;
@@ -118,7 +130,10 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 			const totalReplacements = Array.from(counts.values()).reduce((sum, count) => sum + count, 0);
 			const details = buildReplacementDebugDetails(counts, replacements);
 			const summary = `${EXTENSION_NAME}: applied ${totalReplacements} replacement(s).`;
-			console.info(`[${EXTENSION_NAME}] ${summary}`, { replacements: details });
+			writeDebugLog(true, "replacements.applied", {
+				summary,
+				replacements: details,
+			});
 			if (ctx.hasUI) {
 				ctx.ui.notify(summary, "info");
 			}

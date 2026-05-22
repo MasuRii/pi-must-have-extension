@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import {
 	CONFIG_DIR,
 	CONFIG_PATH,
@@ -11,10 +11,21 @@ import {
 import { parseJsonc } from "./jsonc.js";
 import type { ConfigLoadResult, EnsureConfigResult, MustHaveExtensionConfig } from "../types.js";
 
-function cloneFallbackConfig(): MustHaveExtensionConfig {
+function cloneConfig(config: MustHaveExtensionConfig): MustHaveExtensionConfig {
 	return {
-		debug: FALLBACK_CONFIG.debug,
-		replacements: { ...FALLBACK_CONFIG.replacements },
+		debug: config.debug,
+		replacements: { ...config.replacements },
+	};
+}
+
+function cloneFallbackConfig(): MustHaveExtensionConfig {
+	return cloneConfig(FALLBACK_CONFIG);
+}
+
+function cloneLoadResult(result: ConfigLoadResult): ConfigLoadResult {
+	return {
+		...result,
+		config: cloneConfig(result.config),
 	};
 }
 
@@ -58,6 +69,9 @@ const LEGACY_CONFIG_PATHS: readonly string[] = [
 	LEGACY_OPENCODE_CONFIG_PATH,
 ];
 
+let cachedConfigResult: ConfigLoadResult | undefined;
+let cachedConfigFingerprint: string | undefined;
+
 function findLegacyConfigPath(): string | undefined {
 	for (const path of LEGACY_CONFIG_PATHS) {
 		if (existsSync(path)) {
@@ -66,6 +80,27 @@ function findLegacyConfigPath(): string | undefined {
 	}
 
 	return undefined;
+}
+
+function getConfigFingerprint(path: string | undefined): string {
+	if (!path) {
+		return "missing";
+	}
+
+	try {
+		const stats = statSync(path);
+		return `${path}:${stats.mtimeMs}:${stats.size}`;
+	} catch {
+		return "missing";
+	}
+}
+
+function getActiveConfigPath(): string | undefined {
+	if (existsSync(CONFIG_PATH)) {
+		return CONFIG_PATH;
+	}
+
+	return findLegacyConfigPath();
 }
 
 export function ensureConfigExists(): EnsureConfigResult {
@@ -95,33 +130,41 @@ export function ensureConfigExists(): EnsureConfigResult {
 }
 
 export function loadConfig(): ConfigLoadResult {
+	const activePath = getActiveConfigPath();
+	const fingerprint = getConfigFingerprint(activePath);
+	if (cachedConfigResult && cachedConfigFingerprint === fingerprint) {
+		return cloneLoadResult(cachedConfigResult);
+	}
+
 	try {
-		if (existsSync(CONFIG_PATH)) {
+		let result: ConfigLoadResult;
+		if (activePath === CONFIG_PATH) {
 			const loaded = parseConfigFromPath(CONFIG_PATH);
-			return { ...loaded, source: "primary" };
-		}
-
-		if (existsSync(LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH)) {
+			result = { ...loaded, source: "primary" };
+		} else if (activePath === LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH) {
 			const loaded = parseConfigFromPath(LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH);
-			return { ...loaded, source: "legacy_pi_plugin" };
-		}
-
-		if (existsSync(LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH)) {
+			result = { ...loaded, source: "legacy_pi_plugin" };
+		} else if (activePath === LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH) {
 			const loaded = parseConfigFromPath(LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH);
-			return { ...loaded, source: "legacy_plugin" };
-		}
-
-		if (existsSync(LEGACY_OPENCODE_CONFIG_PATH)) {
+			result = { ...loaded, source: "legacy_plugin" };
+		} else if (activePath === LEGACY_OPENCODE_CONFIG_PATH) {
 			const loaded = parseConfigFromPath(LEGACY_OPENCODE_CONFIG_PATH);
-			return { ...loaded, source: "legacy_opencode" };
+			result = { ...loaded, source: "legacy_opencode" };
+		} else {
+			result = { config: cloneFallbackConfig(), source: "fallback" };
 		}
 
-		return { config: cloneFallbackConfig(), source: "fallback" };
+		cachedConfigFingerprint = fingerprint;
+		cachedConfigResult = cloneLoadResult(result);
+		return result;
 	} catch (error) {
-		return {
+		const result: ConfigLoadResult = {
 			config: cloneFallbackConfig(),
 			source: "fallback",
 			warning: `Failed to load config: ${error instanceof Error ? error.message : String(error)}`,
 		};
+		cachedConfigFingerprint = fingerprint;
+		cachedConfigResult = cloneLoadResult(result);
+		return result;
 	}
 }

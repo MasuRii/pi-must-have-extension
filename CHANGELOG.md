@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.13] - 2026-05-22
+
+### Changed
+- Cached config loads by active config fingerprint while returning cloned results to avoid repeated disk reads without sharing mutable config objects.
+- Replaced terminal debug/console output with file-backed debug logging that only writes when `debug` is enabled.
+- Updated package metadata and lockfile version to `0.4.13` and migrated Pi peer dependency metadata to the `@earendil-works` scope.
+
 ## [0.4.12] - 2026-04-28
 
 ### Changed

@@ -20,7 +20,7 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 - **Input filtering** — Leaves slash commands (`/`) and shell input (`!`) unchanged
 - **Auto-configuration** — Creates a default config file when none exists
 - **Legacy migration** — Automatically migrates configs from previous plugin versions
-- **Debug mode** — Optional TUI notifications showing replacement counts
+- **Debug mode** — Optional file-backed debug logging for config and replacement details without terminal output
 
 ## Installation
 
@@ -76,7 +76,7 @@ Actual global path: $PI_CODING_AGENT_DIR/extensions/pi-must-have-extension/confi
 
 ```jsonc
 {
-  // Enable debug notifications in the TUI
+  // Enable file-backed debug logging under debug/
   // "debug": true,
 
   "replacements": {
@@ -99,7 +99,7 @@ Actual global path: $PI_CODING_AGENT_DIR/extensions/pi-must-have-extension/confi
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `debug` | `boolean` | `false` | Enable TUI notifications showing replacement counts |
+| `debug` | `boolean` | `false` | Enable file-backed debug logging under `debug/`; no debug output is printed to the terminal |
 | `replacements` | `object` | RFC 2119 defaults | Key-value map of terms to replace |
 
 ### Custom Replacements

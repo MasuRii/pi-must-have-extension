@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.14] - 2026-05-26
+
+### Changed
+- Widened peer dependency ranges to `^0.74.0 || ^0.75.0`.
+- Aligned dev dependencies to `^0.75.5`.
+
 ## [0.4.13] - 2026-05-22
 
 ### Changed

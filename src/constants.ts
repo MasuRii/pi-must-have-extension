@@ -1,7 +1,32 @@
-import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { homedir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { MustHaveExtensionConfig } from "./types.js";
+
+function normalizeAgentDirPath(path: string): string {
+	if (path === "~") {
+		return homedir();
+	}
+
+	if (path.startsWith("~/") || (process.platform === "win32" && path.startsWith("~\\"))) {
+		return join(homedir(), path.slice(2));
+	}
+
+	if (/^file:\/\//.test(path)) {
+		return fileURLToPath(path);
+	}
+
+	return path;
+}
+
+function getAgentDir(): string {
+	const envDir = process.env.PI_CODING_AGENT_DIR;
+	if (envDir) {
+		return normalizeAgentDirPath(envDir);
+	}
+
+	return join(homedir(), ".pi", "agent");
+}
 
 export const EXTENSION_NAME = "pi-must-have-extension";
 export const AGENT_DIR = getAgentDir();

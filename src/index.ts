@@ -6,13 +6,60 @@ import {
 	LEGACY_OPENCODE_CONFIG_PATH,
 	LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH,
 } from "./constants.js";
-import { ensureConfigExists, loadConfig } from "./config/config-loader.js";
-import { writeDebugLog } from "./debug-logger.js";
 import { applyReplacements, shouldSkipInput } from "./replacements/replacement-engine.js";
+
+type ConfigLoaderModule = typeof import("./config/config-loader.js");
+type DebugLoggerModule = typeof import("./debug-logger.js");
 
 interface ReplacementDebugDetail {
 	value: string;
 	count: number;
+}
+
+let configLoaderModule: ConfigLoaderModule | undefined;
+let configLoaderModulePromise: Promise<ConfigLoaderModule> | undefined;
+let debugLoggerModule: DebugLoggerModule | undefined;
+let debugLoggerModulePromise: Promise<DebugLoggerModule> | undefined;
+
+function loadConfigLoaderModule(): Promise<ConfigLoaderModule> {
+	if (configLoaderModule) {
+		return Promise.resolve(configLoaderModule);
+	}
+
+	configLoaderModulePromise ??= import("./config/config-loader.js").then((module) => {
+		configLoaderModule = module;
+		return module;
+	});
+	return configLoaderModulePromise;
+}
+
+function loadDebugLoggerModule(): Promise<DebugLoggerModule> {
+	if (debugLoggerModule) {
+		return Promise.resolve(debugLoggerModule);
+	}
+
+	debugLoggerModulePromise ??= import("./debug-logger.js").then((module) => {
+		debugLoggerModule = module;
+		return module;
+	});
+	return debugLoggerModulePromise;
+}
+
+async function writeDebugLogWhenEnabled(
+	enabled: boolean,
+	event: string,
+	payload: Record<string, unknown> = {},
+): Promise<void> {
+	if (!enabled) {
+		return;
+	}
+
+	try {
+		const { writeDebugLog } = await loadDebugLoggerModule();
+		writeDebugLog(true, event, payload);
+	} catch {
+		// Debug logging must never affect extension behavior.
+	}
 }
 
 function buildReplacementDebugDetails(
@@ -34,30 +81,31 @@ function buildReplacementDebugDetails(
 export default function mustHaveExtension(pi: ExtensionAPI): void {
 	const warnedMessages = new Set<string>();
 
-	const warnOnce = (
+	const warnOnce = async (
 		message: string,
 		ctx: Pick<ExtensionContext, "hasUI" | "ui">,
 		debugEnabled: boolean,
-	): void => {
+	): Promise<void> => {
 		if (warnedMessages.has(message)) {
 			return;
 		}
 		warnedMessages.add(message);
-		writeDebugLog(debugEnabled, "warning", { message });
+		await writeDebugLogWhenEnabled(debugEnabled, "warning", { message });
 		if (ctx.hasUI) {
 			ctx.ui.notify(message, "warning");
 		}
 	};
 
 	pi.on("session_start", async (_event, ctx) => {
+		const { ensureConfigExists, loadConfig } = await loadConfigLoaderModule();
 		const ensureResult = ensureConfigExists();
 		const loaded = loadConfig();
 		const debugEnabled = loaded.config.debug;
 		if (ensureResult.error) {
-			warnOnce(ensureResult.error, ctx, debugEnabled);
+			await warnOnce(ensureResult.error, ctx, debugEnabled);
 		}
 		if (ensureResult.migratedFrom) {
-			warnOnce(
+			await warnOnce(
 				`${EXTENSION_NAME}: migrated legacy config from ${ensureResult.migratedFrom} to ${CONFIG_PATH}.`,
 				ctx,
 				debugEnabled,
@@ -65,11 +113,11 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 		}
 
 		if (loaded.warning) {
-			warnOnce(loaded.warning, ctx, debugEnabled);
+			await warnOnce(loaded.warning, ctx, debugEnabled);
 		}
 
 		if (loaded.source === "legacy_pi_plugin") {
-			warnOnce(
+			await warnOnce(
 				`${EXTENSION_NAME}: using legacy config ${LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
 				debugEnabled,
@@ -77,7 +125,7 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 		}
 
 		if (loaded.source === "legacy_plugin") {
-			warnOnce(
+			await warnOnce(
 				`${EXTENSION_NAME}: using legacy config ${LEGACY_MUST_HAVE_PLUGIN_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
 				debugEnabled,
@@ -85,7 +133,7 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 		}
 
 		if (loaded.source === "legacy_opencode") {
-			warnOnce(
+			await warnOnce(
 				`${EXTENSION_NAME}: using legacy config ${LEGACY_OPENCODE_CONFIG_PATH}. Move it to ${CONFIG_PATH}.`,
 				ctx,
 				debugEnabled,
@@ -94,7 +142,7 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 
 		if (debugEnabled) {
 			const replacementCount = Object.keys(loaded.config.replacements).length;
-			writeDebugLog(true, "debug.enabled", {
+			await writeDebugLogWhenEnabled(true, "debug.enabled", {
 				source: loaded.source,
 				replacementCount,
 				configPath: CONFIG_PATH,
@@ -111,9 +159,10 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 			return { action: "continue" as const };
 		}
 
+		const { loadConfig } = await loadConfigLoaderModule();
 		const loaded = loadConfig();
 		if (loaded.warning) {
-			warnOnce(loaded.warning, ctx, loaded.config.debug);
+			await warnOnce(loaded.warning, ctx, loaded.config.debug);
 		}
 
 		const replacements = loaded.config.replacements;
@@ -130,7 +179,7 @@ export default function mustHaveExtension(pi: ExtensionAPI): void {
 			const totalReplacements = Array.from(counts.values()).reduce((sum, count) => sum + count, 0);
 			const details = buildReplacementDebugDetails(counts, replacements);
 			const summary = `${EXTENSION_NAME}: applied ${totalReplacements} replacement(s).`;
-			writeDebugLog(true, "replacements.applied", {
+			await writeDebugLogWhenEnabled(true, "replacements.applied", {
 				summary,
 				replacements: details,
 			});

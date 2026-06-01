@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.15] - 2026-06-01
+
+### Changed
+- Deferred config-loader and debug-logger module loading to reduce extension startup work.
+- Widened the Pi coding-agent peer dependency range to include `^0.77.0 || ^0.78.0` and aligned the development dependency to `^0.78.0`.
+
 ## [0.4.14] - 2026-05-26
 
 ### Changed

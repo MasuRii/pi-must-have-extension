@@ -116,6 +116,19 @@ test("applyReplacements replaces RFC2119 words case-insensitively", () => {
 	assert.equal(counts.get("should"), 1);
 });
 
+test("applyReplacements supports expanded BCP14-adjacent terms and contractions", () => {
+	const { result, counts } = applyReplacements("You mustn't proceed; it is not allowed and oughtn't happen.", {
+		"mustn't": "MUST NOT",
+		"not allowed": "NOT ALLOWED",
+		"oughtn't": "SHOULD NOT",
+	});
+
+	assert.equal(result, "You MUST NOT proceed; it is NOT ALLOWED and SHOULD NOT happen.");
+	assert.equal(counts.get("mustn't"), 1);
+	assert.equal(counts.get("not allowed"), 1);
+	assert.equal(counts.get("oughtn't"), 1);
+});
+
 test("applyReplacements prefers longer matches first", () => {
 	const { result } = applyReplacements("must not ignore this", {
 		must: "MUST",

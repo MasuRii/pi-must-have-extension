@@ -50,15 +50,30 @@ export const LEGACY_OPENCODE_CONFIG_PATH = join(homedir(), ".config", "opencode"
 export const RFC2119_DEFAULTS: Readonly<Record<string, string>> = {
 	must: "MUST",
 	"must not": "MUST NOT",
+	"mustn't": "MUST NOT",
 	required: "REQUIRED",
+	mandatory: "MANDATORY",
 	shall: "SHALL",
 	"shall not": "SHALL NOT",
+	"shan't": "SHALL NOT",
 	should: "SHOULD",
 	"should not": "SHOULD NOT",
+	"shouldn't": "SHOULD NOT",
+	ought: "SHOULD",
+	"ought not": "SHOULD NOT",
+	"oughtn't": "SHOULD NOT",
 	recommended: "RECOMMENDED",
 	"not recommended": "NOT RECOMMENDED",
 	may: "MAY",
+	permitted: "PERMITTED",
+	"not permitted": "NOT PERMITTED",
+	allowed: "ALLOWED",
+	"not allowed": "NOT ALLOWED",
 	optional: "OPTIONAL",
+	"not optional": "NOT OPTIONAL",
+	prohibited: "PROHIBITED",
+	forbidden: "FORBIDDEN",
+	disallowed: "DISALLOWED",
 };
 
 export const FALLBACK_CONFIG: MustHaveExtensionConfig = {
@@ -67,20 +82,35 @@ export const FALLBACK_CONFIG: MustHaveExtensionConfig = {
 };
 
 export const DEFAULT_CONFIG = `{
-  // Enable debug notifications in the TUI
+  // Enable file-backed debug logging under debug/
   // "debug": true,
 
   "replacements": {
     "must": "MUST",
     "must not": "MUST NOT",
+    "mustn't": "MUST NOT",
     "required": "REQUIRED",
+    "mandatory": "MANDATORY",
     "shall": "SHALL",
     "shall not": "SHALL NOT",
+    "shan't": "SHALL NOT",
     "should": "SHOULD",
     "should not": "SHOULD NOT",
+    "shouldn't": "SHOULD NOT",
+    "ought": "SHOULD",
+    "ought not": "SHOULD NOT",
+    "oughtn't": "SHOULD NOT",
     "recommended": "RECOMMENDED",
     "not recommended": "NOT RECOMMENDED",
     "may": "MAY",
-    "optional": "OPTIONAL"
+    "permitted": "PERMITTED",
+    "not permitted": "NOT PERMITTED",
+    "allowed": "ALLOWED",
+    "not allowed": "NOT ALLOWED",
+    "optional": "OPTIONAL",
+    "not optional": "NOT OPTIONAL",
+    "prohibited": "PROHIBITED",
+    "forbidden": "FORBIDDEN",
+    "disallowed": "DISALLOWED"
   }
 }\n`;

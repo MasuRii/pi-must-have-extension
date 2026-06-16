@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+## [0.4.16] - 2026-06-16
+
+### Changed
+- Expanded RFC 2119/BCP 14-adjacent wording coverage to include contractions (`mustn't`, `shouldn't`, `shan't`, `oughtn't`) and common policy terms (`mandatory`, `permitted`, `allowed`, `not allowed`, `prohibited`, `forbidden`, `disallowed`, `not optional`).
+
 ## [0.4.15] - 2026-06-01
 
 ### Changed

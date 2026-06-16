@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/pi-must-have-extension?style=flat-square)](https://www.npmjs.com/package/pi-must-have-extension) [![License](https://img.shields.io/github/license/MasuRii/pi-must-have-extension?style=flat-square)](LICENSE)
 
-Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase modal terms (`must`, `should not`, `optional`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`).
+Normalize RFC 2119/8174 and BCP 14-adjacent language in Pi prompts by automatically rewriting lowercase modal terms (`must`, `should not`, `optional`) and common variants (`mustn't`, `ought not`, `not allowed`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`, `MUST NOT`, `NOT ALLOWED`).
 
 <img width="1360" height="752" alt="image" src="https://github.com/user-attachments/assets/d5aff97e-ac69-48d1-a071-c7f5460899e4" />
 
@@ -14,6 +14,7 @@ Normalize RFC 2119 language in Pi prompts by automatically rewriting lowercase m
 ## Features
 
 - **RFC 2119/8174 compliance** — Transforms modal keywords to standard uppercase notation
+- **Expanded wording coverage** — Includes contractions and adjacent policy terms such as `mandatory`, `mustn't`, `ought not`, `not allowed`, `prohibited`, and `forbidden`
 - **Intelligent matching** — Case-insensitive with longest-first phrase replacement
 - **Word-boundary aware** — Does not replace keywords embedded inside larger words
 - **Configurable replacements** — Customize or extend the default keyword mappings
@@ -82,15 +83,30 @@ Actual global path: $PI_CODING_AGENT_DIR/extensions/pi-must-have-extension/confi
   "replacements": {
     "must": "MUST",
     "must not": "MUST NOT",
+    "mustn't": "MUST NOT",
     "required": "REQUIRED",
+    "mandatory": "MANDATORY",
     "shall": "SHALL",
     "shall not": "SHALL NOT",
+    "shan't": "SHALL NOT",
     "should": "SHOULD",
     "should not": "SHOULD NOT",
+    "shouldn't": "SHOULD NOT",
+    "ought": "SHOULD",
+    "ought not": "SHOULD NOT",
+    "oughtn't": "SHOULD NOT",
     "recommended": "RECOMMENDED",
     "not recommended": "NOT RECOMMENDED",
     "may": "MAY",
-    "optional": "OPTIONAL"
+    "permitted": "PERMITTED",
+    "not permitted": "NOT PERMITTED",
+    "allowed": "ALLOWED",
+    "not allowed": "NOT ALLOWED",
+    "optional": "OPTIONAL",
+    "not optional": "NOT OPTIONAL",
+    "prohibited": "PROHIBITED",
+    "forbidden": "FORBIDDEN",
+    "disallowed": "DISALLOWED"
   }
 }
 ```
@@ -122,6 +138,8 @@ You can add custom replacement rules or modify existing ones:
 ```
 
 An advanced replacement sample is included at `config/replacements.custom-sample.jsonc`.
+
+The expanded defaults preserve the official BCP 14 keywords from RFC 2119/RFC 8174 and add practical writing variants found in policy and instruction text. Official BCP 14 reference: https://www.rfc-editor.org/bcp/bcp14.txt.
 
 ### Legacy Config Paths
 

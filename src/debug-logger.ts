@@ -79,7 +79,8 @@ export function writeDebugLog(
 			})}\n`,
 			"utf8",
 		).catch(() => undefined);
-	} catch {
-		// Debug logging must never affect extension behavior.
+	} catch (writeError) {
+		// Debug logging is best-effort and must never affect extension behavior.
+		void writeError;
 	}
 }

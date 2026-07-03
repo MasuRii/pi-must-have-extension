@@ -6,6 +6,7 @@ import {
 	LEGACY_OPENCODE_CONFIG_PATH,
 	LEGACY_PI_MUST_HAVE_PLUGIN_CONFIG_PATH,
 } from "./constants.js";
+import { loadConfig as loadMustHaveConfig } from "./config/config-loader.js";
 import { applyReplacements, shouldSkipInput } from "./replacements/replacement-engine.js";
 
 type ConfigLoaderModule = typeof import("./config/config-loader.js");
@@ -16,33 +17,25 @@ interface ReplacementDebugDetail {
 	count: number;
 }
 
-let configLoaderModule: ConfigLoaderModule | undefined;
-let configLoaderModulePromise: Promise<ConfigLoaderModule> | undefined;
-let debugLoggerModule: DebugLoggerModule | undefined;
-let debugLoggerModulePromise: Promise<DebugLoggerModule> | undefined;
+const moduleCache = new Map<string, Promise<unknown>>();
 
-function loadConfigLoaderModule(): Promise<ConfigLoaderModule> {
-	if (configLoaderModule) {
-		return Promise.resolve(configLoaderModule);
+function loadModule<T>(specifier: string): Promise<T> {
+	const cached = moduleCache.get(specifier);
+	if (cached) {
+		return cached as Promise<T>;
 	}
 
-	configLoaderModulePromise ??= import("./config/config-loader.js").then((module) => {
-		configLoaderModule = module;
-		return module;
-	});
-	return configLoaderModulePromise;
+	const promise = import(specifier) as Promise<T>;
+	moduleCache.set(specifier, promise);
+	return promise;
+}
+
+function loadConfigLoaderModule(): Promise<ConfigLoaderModule> {
+	return loadModule<ConfigLoaderModule>("./config/config-loader.js");
 }
 
 function loadDebugLoggerModule(): Promise<DebugLoggerModule> {
-	if (debugLoggerModule) {
-		return Promise.resolve(debugLoggerModule);
-	}
-
-	debugLoggerModulePromise ??= import("./debug-logger.js").then((module) => {
-		debugLoggerModule = module;
-		return module;
-	});
-	return debugLoggerModulePromise;
+	return loadModule<DebugLoggerModule>("./debug-logger.js");
 }
 
 async function writeDebugLogWhenEnabled(
@@ -57,8 +50,9 @@ async function writeDebugLogWhenEnabled(
 	try {
 		const { writeDebugLog } = await loadDebugLoggerModule();
 		writeDebugLog(true, event, payload);
-	} catch {
-		// Debug logging must never affect extension behavior.
+	} catch (error) {
+		// Debug logging is best-effort and must never affect extension behavior.
+		void error;
 	}
 }
 
@@ -79,6 +73,10 @@ function buildReplacementDebugDetails(
 }
 
 export default function mustHaveExtension(pi: ExtensionAPI): void {
+	if (!loadMustHaveConfig().config.enabled) {
+		return;
+	}
+
 	const warnedMessages = new Set<string>();
 
 	const warnOnce = async (

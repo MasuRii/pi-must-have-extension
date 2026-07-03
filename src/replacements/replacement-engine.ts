@@ -1,5 +1,8 @@
 import type { ReplacementOutcome } from "../types.js";
 
+/** Maximum length for a single replacement key. Bounds regex compilation work and blocks oversized config values from causing slow regex evaluation. */
+const MAX_REPLACEMENT_KEY_LENGTH = 500;
+
 function escapeRegex(value: string): string {
 	return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -26,8 +29,14 @@ export function applyReplacements(text: string, replacements: Record<string, str
 		return { result: text, counts: new Map() };
 	}
 
-	const sortedKeys = Object.keys(replacements).sort((left, right) => right.length - left.length);
+	const sortedKeys = Object.keys(replacements)
+		.filter((key) => key.length > 0 && key.length <= MAX_REPLACEMENT_KEY_LENGTH)
+		.sort((left, right) => right.length - left.length);
+	if (sortedKeys.length === 0) {
+		return { result: text, counts: new Map() };
+	}
 	const patternStrings = sortedKeys.map((key) => `(?<![a-zA-Z*_])${escapeRegex(key)}(?![a-zA-Z*_])`);
+	// nosemgrep: javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp — each key is length-bounded (<=MAX_REPLACEMENT_KEY_LENGTH) and escaped via escapeRegex before interpolation; the combined pattern contains only literal alternations with literal lookarounds.
 	const combinedPattern = new RegExp(`(${patternStrings.join("|")})`, "gi");
 
 	const lookup = new Map<string, string>();

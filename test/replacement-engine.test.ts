@@ -195,6 +195,17 @@ test("input hook reloads config when fixture content changes", async () => {
 	});
 });
 
+test("applyReplacements safely ignores oversized replacement keys without throwing", () => {
+	const oversizedKey = "x".repeat(600);
+	const { result, counts } = applyReplacements("normal text", {
+		[oversizedKey]: "REPLACED",
+		must: "MUST",
+	});
+
+	assert.equal(result, "normal text");
+	assert.equal(counts.size, 0);
+});
+
 test("session_start and input handlers surface config warnings and debug notifications", async () => {
 	writeConfig(`{"debug": true,, "replacements": {"must":"MUST"}}\n`);
 	const harness = createRuntimeHarness();

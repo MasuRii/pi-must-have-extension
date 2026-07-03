@@ -1,4 +1,5 @@
 export interface MustHaveExtensionConfig {
+	enabled: boolean;
 	debug: boolean;
 	replacements: Record<string, string>;
 }

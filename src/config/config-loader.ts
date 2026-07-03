@@ -13,6 +13,7 @@ import type { ConfigLoadResult, EnsureConfigResult, MustHaveExtensionConfig } fr
 
 function cloneConfig(config: MustHaveExtensionConfig): MustHaveExtensionConfig {
 	return {
+		enabled: config.enabled,
 		debug: config.debug,
 		replacements: { ...config.replacements },
 	};
@@ -57,6 +58,7 @@ function parseConfigFromPath(path: string): Omit<ConfigLoadResult, "source"> {
 
 	return {
 		config: {
+			enabled: root.enabled !== false,
 			debug: root.debug === true,
 			replacements: toReplacementMap(root.replacements),
 		},

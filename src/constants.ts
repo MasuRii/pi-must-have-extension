@@ -77,6 +77,7 @@ export const RFC2119_DEFAULTS: Readonly<Record<string, string>> = {
 };
 
 export const FALLBACK_CONFIG: MustHaveExtensionConfig = {
+	enabled: true,
 	debug: false,
 	replacements: { ...RFC2119_DEFAULTS },
 };

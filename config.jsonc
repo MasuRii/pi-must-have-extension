@@ -1,0 +1,36 @@
+{
+  // Master extension toggle. Set to false to skip all hook/command registration.
+  "enabled": true,
+
+  // Enable file-backed debug logging under debug/
+  "debug": false,
+
+  "replacements": {
+    "must": "MUST",
+    "must not": "MUST NOT",
+    "mustn't": "MUST NOT",
+    "required": "REQUIRED",
+    "mandatory": "MANDATORY",
+    "shall": "SHALL",
+    "shall not": "SHALL NOT",
+    "shan't": "SHALL NOT",
+    "should": "SHOULD",
+    "should not": "SHOULD NOT",
+    "shouldn't": "SHOULD NOT",
+    "ought": "SHOULD",
+    "ought not": "SHOULD NOT",
+    "oughtn't": "SHOULD NOT",
+    "recommended": "RECOMMENDED",
+    "not recommended": "NOT RECOMMENDED",
+    "may": "MAY",
+    "permitted": "PERMITTED",
+    "not permitted": "NOT PERMITTED",
+    "allowed": "ALLOWED",
+    "not allowed": "NOT ALLOWED",
+    "optional": "OPTIONAL",
+    "not optional": "NOT OPTIONAL",
+    "prohibited": "PROHIBITED",
+    "forbidden": "FORBIDDEN",
+    "disallowed": "DISALLOWED"
+  }
+}

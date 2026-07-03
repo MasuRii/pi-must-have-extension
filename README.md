@@ -1,11 +1,17 @@
+<div align="center">
+
 # pi-must-have-extension
 
-[![npm version](https://img.shields.io/npm/v/pi-must-have-extension?style=flat-square)](https://www.npmjs.com/package/pi-must-have-extension) [![License](https://img.shields.io/github/license/MasuRii/pi-must-have-extension?style=flat-square)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/pi-must-have-extension?style=for-the-badge)](https://www.npmjs.com/package/pi-must-have-extension)
+[![License](https://img.shields.io/github/license/MasuRii/pi-must-have-extension?style=for-the-badge)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-blue?style=for-the-badge)]()
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y01PSSVR)
 
 Normalize RFC 2119/8174 and BCP 14-adjacent language in Pi prompts by automatically rewriting lowercase modal terms (`must`, `should not`, `optional`) and common variants (`mustn't`, `ought not`, `not allowed`) into uppercase normative forms (`MUST`, `SHOULD NOT`, `OPTIONAL`, `MUST NOT`, `NOT ALLOWED`).
-
 <img width="1360" height="752" alt="image" src="https://github.com/user-attachments/assets/d5aff97e-ac69-48d1-a071-c7f5460899e4" />
 
+</div>
 
 ## Demo
 
@@ -205,4 +211,4 @@ This extension is a Pi-harness adaptation of [ariane-emory/MUST-have-plugin](htt
 
 ## License
 
-MIT
+[MIT](LICENSE)

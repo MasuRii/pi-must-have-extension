@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-03
+
+### Added
+- Added an `enabled` master config toggle and a config sample. ([367133a](https://github.com/MasuRii/pi-must-have-extension/commit/367133adb267248c149e0d1a4f91f58786560f0d))
+
+### Changed
+- Consolidated lazy module loading and normalized caught-error names. ([a962ff5](https://github.com/MasuRii/pi-must-have-extension/commit/a962ff57d1a4585e9abed2ebf7456b08acaff9d6))
+- Updated README with badges and a Ko-fi link. ([ca39593](https://github.com/MasuRii/pi-must-have-extension/commit/ca39593c4811cae633332c7aabc392b1b6922b6a))
+- Widened Pi peer dependency compatibility to include `^0.80.0` and added vulnerability overrides (`protobufjs`, `ws`). ([6bf1617](https://github.com/MasuRii/pi-must-have-extension/commit/6bf1617567fc9b2b252649a637464ee53d01ef95))
+
+### Fixed
+- Bounded replacement key length to prevent regex ReDoS. ([2b7576f](https://github.com/MasuRii/pi-must-have-extension/commit/2b7576f6a791ec183664ea6a8095389260d63ce8))
+
 ## [0.4.16] - 2026-06-16
 
 ### Changed
